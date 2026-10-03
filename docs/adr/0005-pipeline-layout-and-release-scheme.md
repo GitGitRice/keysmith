@@ -6,12 +6,12 @@ Date: 2026-10-03 · Status: accepted
 
 One workflow, `.github/workflows/pipeline.yml`, starts on `push` and `pull_request`.
 
-| Job | Purpose | Condition | needs | Environment | Artifact |
-|---|---|---|---|---|---|
-| `lint` | ESLint, Prettier check, `tsc --noEmit`, actionlint | always | – | – | – |
-| `test` | Vitest | always | – | – | – |
-| `build` | single-file build, zip | always | `lint`, `test` | – | upload |
-| `release` | `gh release create v0.1.<run_number> --generate-notes` | push to `main` | `build` | `production` | download |
+| Job       | Purpose                                                | Condition      | needs          | Environment  | Artifact |
+| --------- | ------------------------------------------------------ | -------------- | -------------- | ------------ | -------- |
+| `lint`    | ESLint, Prettier check, `tsc --noEmit`, actionlint     | always         | –              | –            | –        |
+| `test`    | Vitest                                                 | always         | –              | –            | –        |
+| `build`   | single-file build, zip                                 | always         | `lint`, `test` | –            | upload   |
+| `release` | `gh release create v0.1.<run_number> --generate-notes` | push to `main` | `build`        | `production` | download |
 
 - Node version comes from `.nvmrc` (`24`) through `setup-node` with `node-version-file`.
 - npm cache key uses `hashFiles('package-lock.json')`.
