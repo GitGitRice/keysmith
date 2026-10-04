@@ -142,8 +142,16 @@ src/lib/    generator logic: random.ts, password.ts, token.ts, entropy.ts
 src/main.ts user interface (placeholder until issue #6)
 tests/      unit tests
 docs/adr/   architecture decision records
+docs/final-challenge.md  result table of the final challenge
 CONTEXT.md  glossary of the terms in this repo
 ```
+
+## Final challenge
+
+The course's final challenge (debug a broken pipeline with six problems) ran in the separate
+repo [pipeline-challenge](https://github.com/GitGitRice/pipeline-challenge). The result table
+with symptom, cause and fix of each problem is in
+[docs/final-challenge.md](docs/final-challenge.md).
 
 ## License and credits
 
