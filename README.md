@@ -151,7 +151,8 @@ CONTEXT.md  glossary of the terms in this repo
 The course's final challenge (debug a broken pipeline with six problems) ran in the separate
 repo [pipeline-challenge](https://github.com/GitGitRice/pipeline-challenge). The result table
 with symptom, cause and fix of each problem is in
-[docs/final-challenge.md](docs/final-challenge.md).
+[docs/final-challenge.md](docs/final-challenge.md)
+(German: [docs/final-challenge.de.md](docs/final-challenge.de.md)).
 
 ## License and credits
 
