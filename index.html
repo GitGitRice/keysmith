@@ -1,12 +1,115 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>keysmith</title>
   </head>
   <body>
-    <main id="app">keysmith – UI coming</main>
+    <header class="masthead">
+      <h1>keysmith</h1>
+      <p>Passwörter und Secret-Tokens, erzeugt in deinem Browser.</p>
+    </header>
+
+    <main>
+      <form class="card" id="password-form" aria-labelledby="password-title">
+        <h2 id="password-title">Passwort</h2>
+
+        <div class="result-row">
+          <output
+            class="result"
+            id="password-result"
+            aria-live="polite"
+          ></output>
+          <button type="button" class="copy" data-copy="password-result">
+            Kopieren
+          </button>
+        </div>
+        <p class="entropy">Entropie: <span id="password-entropy"></span></p>
+
+        <div class="field">
+          <label for="password-length">Länge</label>
+          <input
+            type="range"
+            id="password-length"
+            name="length"
+            min="8"
+            max="128"
+            value="20"
+          />
+          <output for="password-length" id="password-length-value">20</output>
+        </div>
+
+        <fieldset class="classes">
+          <legend>Zeichen</legend>
+          <label
+            ><input type="checkbox" name="lowercase" checked /> Kleinbuchstaben
+            <code>a–z</code></label
+          >
+          <label
+            ><input type="checkbox" name="uppercase" checked /> Großbuchstaben
+            <code>A–Z</code></label
+          >
+          <label
+            ><input type="checkbox" name="digits" checked /> Ziffern
+            <code>0–9</code></label
+          >
+          <label
+            ><input type="checkbox" name="symbols" checked /> Sonderzeichen
+            <code>!#$%…</code></label
+          >
+        </fieldset>
+
+        <button type="submit" class="regenerate">Neu erzeugen</button>
+      </form>
+
+      <form class="card" id="token-form" aria-labelledby="token-title">
+        <h2 id="token-title">Secret-Token</h2>
+
+        <div class="result-row">
+          <output class="result" id="token-result" aria-live="polite"></output>
+          <button type="button" class="copy" data-copy="token-result">
+            Kopieren
+          </button>
+        </div>
+        <p class="entropy">Entropie: <span id="token-entropy"></span></p>
+
+        <div class="field">
+          <label for="token-bytes">Bytes</label>
+          <select id="token-bytes" name="bytes">
+            <option value="16">16</option>
+            <option value="24">24</option>
+            <option value="32" selected>32</option>
+            <option value="48">48</option>
+            <option value="64">64</option>
+          </select>
+        </div>
+
+        <fieldset class="encoding">
+          <legend>Kodierung</legend>
+          <label
+            ><input type="radio" name="encoding" value="hex" checked />
+            hex</label
+          >
+          <label
+            ><input type="radio" name="encoding" value="base64url" />
+            base64url</label
+          >
+        </fieldset>
+
+        <button type="submit" class="regenerate">Neu erzeugen</button>
+      </form>
+    </main>
+
+    <footer>
+      <p>
+        Zufall aus <code>crypto.getRandomValues</code>. Läuft offline und sendet
+        nichts über das Netzwerk.
+      </p>
+      <p id="copy-status" class="visually-hidden" aria-live="polite"></p>
+    </footer>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
