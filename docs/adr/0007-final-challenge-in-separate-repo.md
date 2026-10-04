@@ -9,7 +9,7 @@ TypeScript, so the YAML cannot run here unchanged.
 
 ## Decision
 
-- A separate throwaway repo, `keysmith-challenge`, holds a tiny Python app (`src/`, `tests/`,
+- A separate throwaway repo, `pipeline-challenge` (no link to keysmith in its name), holds a tiny Python app (`src/`, `tests/`,
   `requirements.txt`).
 - Claude builds the app and pastes the broken pipeline verbatim. Steven finds and fixes the six
   problems.
