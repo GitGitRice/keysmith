@@ -8,9 +8,6 @@ offline and sends nothing over the network.
 keysmith is also the project for the Syntax Institut course task "Eigene CI/CD-Pipeline"
 (Modul 4, Tag 5). The GitHub Actions pipeline tests, builds and releases it.
 
-> **Status:** the generator logic and its tests are done. The user interface comes next
-> (issue #6). Until then, the page shows only a placeholder.
-
 ## What it does
 
 keysmith has two generators:
@@ -24,6 +21,10 @@ keysmith has two generators:
 - A secret token is for machine use: `.env` values, API keys, session secrets.
 - keysmith calculates the estimated strength (entropy, in bits) of each result. The user interface shows it next to the result.
 
+The page shows both generators at the same time. Each one makes a new value when you change an
+option or click **Neu erzeugen**. **Kopieren** copies the value and shows **Kopiert ✓**. The user
+interface is in German. It follows the light or dark mode of your system.
+
 ## Security notes
 
 - **Generation happens only in your browser.** Randomness comes from `crypto.getRandomValues`.
@@ -32,12 +33,20 @@ keysmith has two generators:
   sampling, so there is no modulo bias. A test checks the distribution over many draws.
 - **No external requests.** The build inlines all JavaScript and CSS into one `index.html`. There
   is no CDN, no web font and no analytics.
+- **Content-Security-Policy.** The build adds a CSP `<meta>` tag to `index.html`. It allows only
+  the inlined script and style of that build, by their SHA-256 hashes. It blocks all network
+  requests, frames and form submissions. The dev server (`npm run dev`) runs without this tag,
+  because the tag blocks the dev server's own scripts.
 
 ## Use a release
 
 1. Open the [latest release](https://github.com/GitGitRice/keysmith/releases/latest).
 2. Download `keysmith-0.1.<n>.zip` and unzip it.
 3. Open `index.html` with a double-click. You need no server and no internet connection.
+
+Some browsers block the clipboard API for pages from `file://`. Then **Kopieren** uses a
+fallback. If both fail, the button shows **Fehlgeschlagen**. Then select the value and copy it by
+hand.
 
 ## Run locally
 
@@ -139,7 +148,8 @@ gh release create "v0.1.<run_number>" dist/*.zip --generate-notes --target <comm
 
 ```
 src/lib/    generator logic: random.ts, password.ts, token.ts, entropy.ts
-src/main.ts user interface (placeholder until issue #6)
+src/main.ts user interface (with index.html and src/style.css)
+build/      Vite plugin that adds the Content-Security-Policy tag
 tests/      unit tests
 docs/adr/   architecture decision records
 docs/final-challenge.md  result table of the final challenge

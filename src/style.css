@@ -1,0 +1,237 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f4f1ec;
+  --card: #fffdf9;
+  --text: #1f1c18;
+  --muted: #6b645b;
+  --line: #ddd5c9;
+  --result-bg: #f0ebe3;
+  --accent: #c2410c;
+  --accent-text: #ffffff;
+  --focus: #ea580c;
+  --mono:
+    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161412;
+    --card: #1f1c19;
+    --text: #ece6dd;
+    --muted: #a39a8e;
+    --line: #3a342e;
+    --result-bg: #12100e;
+    --accent: #f97316;
+    --accent-text: #1a0f06;
+    --focus: #fb923c;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2.5rem 1rem 2rem;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 var(--sans);
+}
+
+.masthead,
+main,
+footer {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.masthead h1 {
+  margin: 0;
+  font: 700 2rem/1.1 var(--mono);
+  letter-spacing: -0.02em;
+}
+
+.masthead h1::before {
+  content: "▮ ";
+  color: var(--accent);
+}
+
+.masthead p,
+footer {
+  color: var(--muted);
+}
+
+main {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.result-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.result {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 0.9rem;
+  background: var(--result-bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: 1.05rem/1.45 var(--mono);
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.entropy {
+  margin: -0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.entropy span {
+  font-family: var(--mono);
+  color: var(--text);
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 5rem 1fr 3rem;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.field output {
+  font-family: var(--mono);
+  text-align: right;
+}
+
+.field select {
+  grid-column: 2 / 4;
+  justify-self: start;
+  min-width: 6rem;
+  font: inherit;
+  font-family: var(--mono);
+  padding: 0.3rem 0.5rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+fieldset {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0 0 0 5.75rem;
+  border: 0;
+}
+
+legend {
+  position: absolute;
+  left: 0;
+  padding: 0;
+}
+
+fieldset label {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+fieldset input {
+  accent-color: var(--accent);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--muted);
+}
+
+button {
+  font: inherit;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.copy {
+  min-width: 7.5rem;
+  background: var(--accent);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
+  font-weight: 600;
+}
+
+.copy.done {
+  background: transparent;
+  color: var(--accent);
+}
+
+.regenerate {
+  justify-self: start;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.regenerate:hover {
+  border-color: var(--muted);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+  .result-row {
+    flex-direction: column;
+  }
+
+  .field {
+    grid-template-columns: 4rem 1fr 2.5rem;
+  }
+
+  fieldset {
+    padding-left: 4.75rem;
+  }
+}
