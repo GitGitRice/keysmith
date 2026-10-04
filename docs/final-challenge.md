@@ -1,5 +1,7 @@
 # Final challenge: debugging a broken pipeline
 
+[Deutsche Fassung](final-challenge.de.md)
+
 The task's final challenge is a broken Python pipeline with six problems, some functional and
 some security-related. keysmith is TypeScript, so the challenge ran in a separate repo (see
 [ADR-0007](adr/0007-final-challenge-in-separate-repo.md)):
