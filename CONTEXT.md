@@ -47,18 +47,28 @@ The single-file build, uploaded by `build` and downloaded by `release`. It is bu
 
 **Environment**:
 The GitHub environment `production`: Steven as required reviewer, deployment branch `main` only.
-It holds the `DEPLOY_TOKEN` secret.
+It holds the `DEPLOY_TOKEN` and `AWS_ROLE_ARN` secrets.
 
 **Release**:
-A GitHub Release `v0.1.<run_number>` with the zipped single-file build as its asset. Creating it is
-the deployment of keysmith.
-_Avoid_: deploy target, publish
+A GitHub Release `v0.1.<run_number>` with the zipped single-file build as its asset. Created by the
+`release` job of the pipeline.
+_Avoid_: publish
+
+**S3 deploy**:
+The workflow `.github/workflows/deploy-aws.yml`: it builds the single-file build and syncs it to the
+S3 bucket. It logs in to AWS with OIDC (ADR-0009).
+_Avoid_: pipeline (for this workflow), upload (alone)
+
+**OIDC role**:
+The IAM role `github-actions-deploy` that the S3 deploy assumes. Its trust policy allows only
+`environment:production` of this repo. Its policy allows only the keysmith bucket.
+_Avoid_: AWS user, access key
 
 **Phase**:
 One of the steps of the task PDF (Phase 1–5 plus the final challenge). Each phase maps to one
 GitHub issue and one PR.
 
 **Final challenge**:
-The task PDF's broken Python pipeline with six problems. It runs in the separate repo
-`keysmith-challenge`.
+The Tag 5 task PDF's broken Python pipeline with six problems. It runs in the separate repo
+`pipeline-challenge`.
 _Avoid_: Abschluss-Challenge (in English text)
