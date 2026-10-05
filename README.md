@@ -144,6 +144,21 @@ gh release create "v0.1.<run_number>" dist/*.zip --generate-notes --target <comm
 - `--target` puts the tag on the commit that the pipeline built, not on a newer commit.
 - `--generate-notes` writes the release notes from the merged pull requests.
 
+### Repository security
+
+- **Branch rules on `main`.** A ruleset blocks direct pushes, force pushes and deletion of
+  `main`. Each change needs a pull request. The pull request can merge only when `lint`, `test`
+  and `build` pass, and only as a squash merge.
+- **CodeQL.** [`.github/workflows/codeql.yml`](.github/workflows/codeql.yml) scans the
+  TypeScript code and the workflow files. It runs on each pull request, on each push to `main`
+  and once a week. Results show in the tab **Security → Code scanning**.
+- **Dependabot.** [`.github/dependabot.yml`](.github/dependabot.yml) checks npm packages and
+  actions once a week and opens a pull request for each update. It also updates transitive npm
+  packages. It skips new major versions of `typescript` and `@types/node`: `typescript-eslint`
+  does not support TypeScript 7 yet, and `@types/node` must match the Node version in `.nvmrc`.
+  Dependabot alerts and security updates are on.
+- **Reporting.** See [SECURITY.md](SECURITY.md).
+
 ## Project layout
 
 ```
