@@ -56,12 +56,14 @@ _Avoid_: publish
 
 **S3 deploy**:
 The workflow `.github/workflows/deploy-aws.yml`: it builds the single-file build and syncs it to the
-S3 bucket. It logs in to AWS with OIDC (ADR-0009).
+S3 bucket. It logs in to AWS with OIDC (ADR-0009). Removed from `main` after the AWS cleanup on
+2026-10-05; the last version is in commit `a323518`.
 _Avoid_: pipeline (for this workflow), upload (alone)
 
 **OIDC role**:
 The IAM role `github-actions-deploy` that the S3 deploy assumes. Its trust policy allows only
-`environment:production` of this repo. Its policy allows only the keysmith bucket.
+`environment:production` of this repo. Its policy allows only the keysmith bucket. Deleted on
+2026-10-05.
 _Avoid_: AWS user, access key
 
 **Phase**:
