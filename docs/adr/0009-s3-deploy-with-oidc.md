@@ -20,8 +20,13 @@ workflow with six errors.
 - **Environment:** the deploy job uses the existing environment `production` (required reviewer,
   branch `main` only).
 - **Trust policy:** `aud` must equal `sts.amazonaws.com`. `sub` must equal
-  `repo:GitGitRice/keysmith:environment:production`. A job with an environment gets only this
-  `sub`, so the PDF's second value `ref:refs/heads/main` is not needed and is left out.
+  `repo:GitGitRice@160424208/keysmith@1401356166:environment:production`. A job with an
+  environment gets only this `sub`, so the PDF's second value `ref:refs/heads/main` is not needed
+  and is left out.
+- **Immutable subject:** the repo uses GitHub's immutable OIDC subject. The `sub` holds the owner
+  ID and the repo ID next to the names, so the PDF's format `repo:<OWNER>/<REPO>:...` never
+  matches. Read the prefix with `gh api repos/<owner>/<repo>/actions/oidc/customization/sub`. A
+  new repo with the same name gets a new ID, so it cannot assume the role.
 - **Role policy:** `s3:ListBucket` on the bucket, `s3:PutObject` and `s3:DeleteObject` on
   `<bucket>/*`. Nothing else.
 - **Bucket:** region `eu-central-1`, Block Public Access on. To view the page, use
