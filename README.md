@@ -20,10 +20,29 @@ keysmith has two generators:
 - Each enabled character class appears at least once in a password.
 - A secret token is for machine use: `.env` values, API keys, session secrets.
 - keysmith calculates the estimated strength (entropy, in bits) of each result. The user interface shows it next to the result.
+- keysmith also shows the average time an attacker needs to find the value (crack time), for
+  three attack types:
 
-The page shows both generators at the same time. Each one makes a new value when you change an
-option or click **Neu erzeugen**. **Kopieren** copies the value and shows **Kopiert ✓**. The user
-interface is in German. It follows the light or dark mode of your system.
+  | Attack type               | Guesses per second | Example                                  |
+  | ------------------------- | ------------------ | ---------------------------------------- |
+  | Online-Login              | 10                 | Guesses through a login form.            |
+  | Datenleck, langsamer Hash | 10 000             | Stolen database with bcrypt or Argon2.   |
+  | Datenleck, schneller Hash | 100 000 000 000    | Stolen database with MD5, SHA-1 or NTLM. |
+
+  The average time is 2^(bits − 1) / guesses per second. The rates are rough orders of
+  magnitude. The estimate is only for random values. A name or a word is much weaker, because
+  attackers try word lists first.
+
+The page shows both generators at the same time. A value appears only after a click on
+**Passwort generieren** or **Secret-Token generieren**. If you change an option, the old
+value stays, and a hint asks you to generate a new value. **Kopieren** copies the value and shows **Kopiert ✓**. A panel to the right of each
+generator shows the entropy and the crack times. On narrow screens the panel is below the
+generator.
+
+The user interface is in German and English. keysmith uses the language of your browser if it
+is one of the two, else German. The **DE / EN** switch at the top right changes the language.
+The page follows the light or dark mode of your system. The button next to the language switch
+changes the mode. The browser remembers both choices.
 
 ## Security notes
 
@@ -162,8 +181,8 @@ gh release create "v0.1.<run_number>" dist/*.zip --generate-notes --target <comm
 ## Project layout
 
 ```
-src/lib/    generator logic: random.ts, password.ts, token.ts, entropy.ts
-src/main.ts user interface (with index.html and src/style.css)
+src/lib/    generator logic: random.ts, password.ts, token.ts, entropy.ts, crack-time.ts
+src/main.ts user interface (with index.html, src/style.css and src/i18n.ts, the German and English texts)
 build/      Vite plugin that adds the Content-Security-Policy tag
 tests/      unit tests
 docs/adr/   architecture decision records
